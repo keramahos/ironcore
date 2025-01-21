@@ -38,6 +38,8 @@ message BucketFilter {
 
 message BucketSpec {
   string class = 2;
+  string sizequota = 3;
+  string filesquota = 4;
 }
 
 message BucketStatus {
