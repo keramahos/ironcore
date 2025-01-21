@@ -1,4 +1,4 @@
-module github.com/keramahos/ironcore
+module github.com/ironcore-dev/ironcore
 
 go 1.23.0
 
