@@ -6,7 +6,7 @@ package bucket
 import (
 	"context"
 
-	api "github.com/ironcore-dev/ironcore/iri/apis/bucket/v1alpha1"
+	api "github.com/keramahos/ironcore/iri/apis/bucket/v1alpha1"
 )
 
 type RuntimeService interface {
