@@ -14,6 +14,10 @@ type BucketSpec struct {
 	// BucketClassRef is the BucketClass of a bucket
 	// If empty, an external controller has to provision the bucket.
 	BucketClassRef *corev1.LocalObjectReference `json:"bucketClassRef,omitempty"`
+	// SizeQouta indicates quota to be enforced on overall bucket size
+	SizeQuota string `json:"sizequota,omitempty"`
+	// FilesQuota indicates quota to be enforced on number of files in the bucket
+	FilesQuota string `json:"filesquota,omitempty"`
 	// BucketPoolSelector selects a suitable BucketPoolRef by the given labels.
 	BucketPoolSelector map[string]string `json:"bucketPoolSelector,omitempty"`
 	// BucketPoolRef indicates which BucketPool to use for a bucket.
@@ -37,8 +41,9 @@ type BucketStatus struct {
 	// State represents the infrastructure state of a Bucket.
 	State BucketState `json:"state,omitempty"`
 	// LastStateTransitionTime is the last time the State transitioned between values.
-	LastStateTransitionTime *metav1.Time `json:"lastStateTransitionTime,omitempty"`
-
+	LastStateTransitionTime *metav1.Time                 `json:"lastStateTransitionTime,omitempty"`
+	Sizeused                *corev1.LocalObjectReference `json:"sizeused,omitempty"`
+	Filesused               *corev1.LocalObjectReference `json:"filesused,omitempty"`
 	// Access specifies how to access a Bucket.
 	// This is set by the bucket provider when the bucket is provisioned.
 	Access *BucketAccess `json:"access,omitempty"`

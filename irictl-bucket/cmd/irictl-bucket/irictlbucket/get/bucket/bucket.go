@@ -7,6 +7,7 @@ import (
 	"context"
 	"fmt"
 
+	"github.com/davecgh/go-spew/spew"
 	iri "github.com/ironcore-dev/ironcore/iri/apis/bucket/v1alpha1"
 	"github.com/ironcore-dev/ironcore/irictl-bucket/cmd/irictl-bucket/irictlbucket/common"
 	irictlcmd "github.com/ironcore-dev/ironcore/irictl/cmd"
@@ -61,6 +62,7 @@ func Command(streams irictlcmd.Streams, clientFactory common.ClientFactory) *cob
 }
 
 func Run(ctx context.Context, streams irictlcmd.Streams, client iri.BucketRuntimeClient, render renderer.Renderer, opts Options) error {
+	spew.Dump(ctx)
 	res, err := client.ListBuckets(ctx, &iri.ListBucketsRequest{})
 	if err != nil {
 		return fmt.Errorf("error listing buckets: %w", err)

@@ -7,6 +7,7 @@ import (
 	"context"
 	"fmt"
 
+	"github.com/davecgh/go-spew/spew"
 	storagev1alpha1 "github.com/ironcore-dev/ironcore/api/storage/v1alpha1"
 	bucketbrokerv1alpha1 "github.com/ironcore-dev/ironcore/broker/bucketbroker/api/v1alpha1"
 	"github.com/ironcore-dev/ironcore/broker/bucketbroker/apiutils"
@@ -207,9 +208,11 @@ func (s *Server) ListBuckets(ctx context.Context, req *iri.ListBucketsRequest) (
 	if err != nil {
 		return nil, err
 	}
+	spew.Dump("ctx1")
+	spew.Dump(ctx)
 
 	buckets = s.filterBuckets(buckets, req.Filter)
-
+	spew.Dump(buckets)
 	return &iri.ListBucketsResponse{
 		Buckets: buckets,
 	}, nil

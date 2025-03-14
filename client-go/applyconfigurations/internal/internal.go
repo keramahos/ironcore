@@ -1405,6 +1405,12 @@ var schemaYAML = typed.YAMLObject(`types:
         map:
           elementType:
             scalar: string
+    - name: filesquota
+      type:
+        scalar: string
+    - name: sizequota
+      type:
+        scalar: string
     - name: tolerations
       type:
         list:
@@ -1423,9 +1429,15 @@ var schemaYAML = typed.YAMLObject(`types:
           elementType:
             namedType: com.github.ironcore-dev.ironcore.api.storage.v1alpha1.BucketCondition
           elementRelationship: atomic
+    - name: filesused
+      type:
+        namedType: io.k8s.api.core.v1.LocalObjectReference
     - name: lastStateTransitionTime
       type:
         namedType: io.k8s.apimachinery.pkg.apis.meta.v1.Time
+    - name: sizeused
+      type:
+        namedType: io.k8s.api.core.v1.LocalObjectReference
     - name: state
       type:
         scalar: string

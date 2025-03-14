@@ -11,6 +11,8 @@ const (
 
 	BucketBucketPoolRefNameField  = "spec.bucketPoolRef.name"
 	BucketBucketClassRefNameField = "spec.bucketClassRef.name"
+	FilesQuota                    = "spec.filesquota"
+	SizeQuota                     = "spec.sizequota"
 
 	// VolumePoolsGroup is the system rbac group all volume pools are in.
 	VolumePoolsGroup = "storage.ironcore.dev:system:volumepools"

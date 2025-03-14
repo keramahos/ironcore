@@ -7,6 +7,7 @@ package v1alpha1
 
 import (
 	v1alpha1 "github.com/ironcore-dev/ironcore/api/storage/v1alpha1"
+	corev1 "k8s.io/api/core/v1"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
@@ -15,6 +16,8 @@ import (
 type BucketStatusApplyConfiguration struct {
 	State                   *v1alpha1.BucketState               `json:"state,omitempty"`
 	LastStateTransitionTime *v1.Time                            `json:"lastStateTransitionTime,omitempty"`
+	Sizeused                *corev1.LocalObjectReference        `json:"sizeused,omitempty"`
+	Filesused               *corev1.LocalObjectReference        `json:"filesused,omitempty"`
 	Access                  *BucketAccessApplyConfiguration     `json:"access,omitempty"`
 	Conditions              []BucketConditionApplyConfiguration `json:"conditions,omitempty"`
 }
@@ -38,6 +41,22 @@ func (b *BucketStatusApplyConfiguration) WithState(value v1alpha1.BucketState) *
 // If called multiple times, the LastStateTransitionTime field is set to the value of the last call.
 func (b *BucketStatusApplyConfiguration) WithLastStateTransitionTime(value v1.Time) *BucketStatusApplyConfiguration {
 	b.LastStateTransitionTime = &value
+	return b
+}
+
+// WithSizeused sets the Sizeused field in the declarative configuration to the given value
+// and returns the receiver, so that objects can be built by chaining "With" function invocations.
+// If called multiple times, the Sizeused field is set to the value of the last call.
+func (b *BucketStatusApplyConfiguration) WithSizeused(value corev1.LocalObjectReference) *BucketStatusApplyConfiguration {
+	b.Sizeused = &value
+	return b
+}
+
+// WithFilesused sets the Filesused field in the declarative configuration to the given value
+// and returns the receiver, so that objects can be built by chaining "With" function invocations.
+// If called multiple times, the Filesused field is set to the value of the last call.
+func (b *BucketStatusApplyConfiguration) WithFilesused(value corev1.LocalObjectReference) *BucketStatusApplyConfiguration {
+	b.Filesused = &value
 	return b
 }
 
