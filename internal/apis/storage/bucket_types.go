@@ -14,6 +14,12 @@ type BucketSpec struct {
 	// BucketClassRef is the BucketClass of a bucket
 	// If empty, an external controller has to provision the bucket.
 	BucketClassRef *corev1.LocalObjectReference
+	// BucketSizeQuotaRef
+	//
+	SizeQuota string
+	// BucketFilesQuotaRef
+	//
+	FilesQuota string
 	// BucketPoolSelector selects a suitable BucketPoolRef by the given labels.
 	BucketPoolSelector map[string]string
 	// BucketPoolRef indicates which BucketPool to use for a bucket.
@@ -35,7 +41,9 @@ type BucketAccess struct {
 // BucketStatus defines the observed state of Bucket
 type BucketStatus struct {
 	// State represents the infrastructure state of a Bucket.
-	State BucketState
+	State     BucketState
+	Sizeused  *corev1.LocalObjectReference
+	Filesused *corev1.LocalObjectReference
 	// LastStateTransitionTime is the last time the State transitioned between values.
 	LastStateTransitionTime *metav1.Time
 

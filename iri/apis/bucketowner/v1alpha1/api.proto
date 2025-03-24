@@ -38,15 +38,13 @@ message BucketFilter {
 
 message BucketSpec {
   string class = 2;
-  string size_quota = 3;
-  string files_quota = 4;
+  string sizequota = 3;
+  string filesquota = 4;
 }
 
 message BucketStatus {
   BucketState state = 1;
   BucketAccess access = 2;
-  string Sizeused = 3;
-  string Filesused = 4;
 }
 
 message Bucket {

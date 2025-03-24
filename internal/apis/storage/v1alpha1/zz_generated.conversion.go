@@ -442,7 +442,17 @@ func Convert_storage_BucketCondition_To_v1alpha1_BucketCondition(in *storage.Buc
 
 func autoConvert_v1alpha1_BucketList_To_storage_BucketList(in *v1alpha1.BucketList, out *storage.BucketList, s conversion.Scope) error {
 	out.ListMeta = in.ListMeta
-	out.Items = *(*[]storage.Bucket)(unsafe.Pointer(&in.Items))
+	if in.Items != nil {
+		in, out := &in.Items, &out.Items
+		*out = make([]storage.Bucket, len(*in))
+		for i := range *in {
+			if err := Convert_v1alpha1_Bucket_To_storage_Bucket(&(*in)[i], &(*out)[i], s); err != nil {
+				return err
+			}
+		}
+	} else {
+		out.Items = nil
+	}
 	return nil
 }
 
@@ -453,7 +463,17 @@ func Convert_v1alpha1_BucketList_To_storage_BucketList(in *v1alpha1.BucketList, 
 
 func autoConvert_storage_BucketList_To_v1alpha1_BucketList(in *storage.BucketList, out *v1alpha1.BucketList, s conversion.Scope) error {
 	out.ListMeta = in.ListMeta
-	out.Items = *(*[]v1alpha1.Bucket)(unsafe.Pointer(&in.Items))
+	if in.Items != nil {
+		in, out := &in.Items, &out.Items
+		*out = make([]v1alpha1.Bucket, len(*in))
+		for i := range *in {
+			if err := Convert_storage_Bucket_To_v1alpha1_Bucket(&(*in)[i], &(*out)[i], s); err != nil {
+				return err
+			}
+		}
+	} else {
+		out.Items = nil
+	}
 	return nil
 }
 
@@ -562,6 +582,8 @@ func Convert_storage_BucketPoolStatus_To_v1alpha1_BucketPoolStatus(in *storage.B
 
 func autoConvert_v1alpha1_BucketSpec_To_storage_BucketSpec(in *v1alpha1.BucketSpec, out *storage.BucketSpec, s conversion.Scope) error {
 	out.BucketClassRef = (*v1.LocalObjectReference)(unsafe.Pointer(in.BucketClassRef))
+	out.SizeQuota = in.SizeQuota
+	out.FilesQuota = in.FilesQuota
 	out.BucketPoolSelector = *(*map[string]string)(unsafe.Pointer(&in.BucketPoolSelector))
 	out.BucketPoolRef = (*v1.LocalObjectReference)(unsafe.Pointer(in.BucketPoolRef))
 	out.Tolerations = *(*[]commonv1alpha1.Toleration)(unsafe.Pointer(&in.Tolerations))
@@ -575,6 +597,8 @@ func Convert_v1alpha1_BucketSpec_To_storage_BucketSpec(in *v1alpha1.BucketSpec, 
 
 func autoConvert_storage_BucketSpec_To_v1alpha1_BucketSpec(in *storage.BucketSpec, out *v1alpha1.BucketSpec, s conversion.Scope) error {
 	out.BucketClassRef = (*v1.LocalObjectReference)(unsafe.Pointer(in.BucketClassRef))
+	out.SizeQuota = in.SizeQuota
+	out.FilesQuota = in.FilesQuota
 	out.BucketPoolSelector = *(*map[string]string)(unsafe.Pointer(&in.BucketPoolSelector))
 	out.BucketPoolRef = (*v1.LocalObjectReference)(unsafe.Pointer(in.BucketPoolRef))
 	out.Tolerations = *(*[]commonv1alpha1.Toleration)(unsafe.Pointer(&in.Tolerations))
@@ -589,6 +613,8 @@ func Convert_storage_BucketSpec_To_v1alpha1_BucketSpec(in *storage.BucketSpec, o
 func autoConvert_v1alpha1_BucketStatus_To_storage_BucketStatus(in *v1alpha1.BucketStatus, out *storage.BucketStatus, s conversion.Scope) error {
 	out.State = storage.BucketState(in.State)
 	out.LastStateTransitionTime = (*metav1.Time)(unsafe.Pointer(in.LastStateTransitionTime))
+	out.Sizeused = (*v1.LocalObjectReference)(unsafe.Pointer(in.Sizeused))
+	out.Filesused = (*v1.LocalObjectReference)(unsafe.Pointer(in.Filesused))
 	out.Access = (*storage.BucketAccess)(unsafe.Pointer(in.Access))
 	out.Conditions = *(*[]storage.BucketCondition)(unsafe.Pointer(&in.Conditions))
 	return nil
@@ -601,6 +627,8 @@ func Convert_v1alpha1_BucketStatus_To_storage_BucketStatus(in *v1alpha1.BucketSt
 
 func autoConvert_storage_BucketStatus_To_v1alpha1_BucketStatus(in *storage.BucketStatus, out *v1alpha1.BucketStatus, s conversion.Scope) error {
 	out.State = v1alpha1.BucketState(in.State)
+	out.Sizeused = (*v1.LocalObjectReference)(unsafe.Pointer(in.Sizeused))
+	out.Filesused = (*v1.LocalObjectReference)(unsafe.Pointer(in.Filesused))
 	out.LastStateTransitionTime = (*metav1.Time)(unsafe.Pointer(in.LastStateTransitionTime))
 	out.Access = (*v1alpha1.BucketAccess)(unsafe.Pointer(in.Access))
 	out.Conditions = *(*[]v1alpha1.BucketCondition)(unsafe.Pointer(&in.Conditions))

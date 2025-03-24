@@ -14,6 +14,8 @@ import (
 // with apply.
 type BucketSpecApplyConfiguration struct {
 	BucketClassRef     *v1.LocalObjectReference `json:"bucketClassRef,omitempty"`
+	SizeQuota          *string                  `json:"sizequota,omitempty"`
+	FilesQuota         *string                  `json:"filesquota,omitempty"`
 	BucketPoolSelector map[string]string        `json:"bucketPoolSelector,omitempty"`
 	BucketPoolRef      *v1.LocalObjectReference `json:"bucketPoolRef,omitempty"`
 	Tolerations        []v1alpha1.Toleration    `json:"tolerations,omitempty"`
@@ -30,6 +32,22 @@ func BucketSpec() *BucketSpecApplyConfiguration {
 // If called multiple times, the BucketClassRef field is set to the value of the last call.
 func (b *BucketSpecApplyConfiguration) WithBucketClassRef(value v1.LocalObjectReference) *BucketSpecApplyConfiguration {
 	b.BucketClassRef = &value
+	return b
+}
+
+// WithSizeQuota sets the SizeQuota field in the declarative configuration to the given value
+// and returns the receiver, so that objects can be built by chaining "With" function invocations.
+// If called multiple times, the SizeQuota field is set to the value of the last call.
+func (b *BucketSpecApplyConfiguration) WithSizeQuota(value string) *BucketSpecApplyConfiguration {
+	b.SizeQuota = &value
+	return b
+}
+
+// WithFilesQuota sets the FilesQuota field in the declarative configuration to the given value
+// and returns the receiver, so that objects can be built by chaining "With" function invocations.
+// If called multiple times, the FilesQuota field is set to the value of the last call.
+func (b *BucketSpecApplyConfiguration) WithFilesQuota(value string) *BucketSpecApplyConfiguration {
+	b.FilesQuota = &value
 	return b
 }
 

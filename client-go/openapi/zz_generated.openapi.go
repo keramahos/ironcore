@@ -5045,6 +5045,20 @@ func schema_ironcore_api_storage_v1alpha1_BucketSpec(ref common.ReferenceCallbac
 							Ref:         ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"sizequota": {
+						SchemaProps: spec.SchemaProps{
+							Description: "SizeQouta indicates quota to be enforced on overall bucket size",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"filesquota": {
+						SchemaProps: spec.SchemaProps{
+							Description: "FilesQuota indicates quota to be enforced on number of files in the bucket",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
 					"bucketPoolSelector": {
 						SchemaProps: spec.SchemaProps{
 							Description: "BucketPoolSelector selects a suitable BucketPoolRef by the given labels.",
@@ -5109,6 +5123,16 @@ func schema_ironcore_api_storage_v1alpha1_BucketStatus(ref common.ReferenceCallb
 							Ref:         ref("k8s.io/apimachinery/pkg/apis/meta/v1.Time"),
 						},
 					},
+					"sizeused": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
+						},
+					},
+					"filesused": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
+						},
+					},
 					"access": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Access specifies how to access a Bucket. This is set by the bucket provider when the bucket is provisioned.",
@@ -5133,7 +5157,7 @@ func schema_ironcore_api_storage_v1alpha1_BucketStatus(ref common.ReferenceCallb
 			},
 		},
 		Dependencies: []string{
-			"github.com/ironcore-dev/ironcore/api/storage/v1alpha1.BucketAccess", "github.com/ironcore-dev/ironcore/api/storage/v1alpha1.BucketCondition", "k8s.io/apimachinery/pkg/apis/meta/v1.Time"},
+			"github.com/ironcore-dev/ironcore/api/storage/v1alpha1.BucketAccess", "github.com/ironcore-dev/ironcore/api/storage/v1alpha1.BucketCondition", "k8s.io/api/core/v1.LocalObjectReference", "k8s.io/apimachinery/pkg/apis/meta/v1.Time"},
 	}
 }
 

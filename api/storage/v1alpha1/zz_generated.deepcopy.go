@@ -328,6 +328,16 @@ func (in *BucketStatus) DeepCopyInto(out *BucketStatus) {
 		in, out := &in.LastStateTransitionTime, &out.LastStateTransitionTime
 		*out = (*in).DeepCopy()
 	}
+	if in.Sizeused != nil {
+		in, out := &in.Sizeused, &out.Sizeused
+		*out = new(v1.LocalObjectReference)
+		**out = **in
+	}
+	if in.Filesused != nil {
+		in, out := &in.Filesused, &out.Filesused
+		*out = new(v1.LocalObjectReference)
+		**out = **in
+	}
 	if in.Access != nil {
 		in, out := &in.Access, &out.Access
 		*out = new(BucketAccess)

@@ -11,7 +11,10 @@ import (
 	storagev1alpha1 "github.com/ironcore-dev/ironcore/api/storage/v1alpha1"
 	bucketbrokerv1alpha1 "github.com/ironcore-dev/ironcore/broker/bucketbroker/api/v1alpha1"
 	"github.com/ironcore-dev/ironcore/broker/bucketbroker/apiutils"
+
 	iri "github.com/ironcore-dev/ironcore/iri/apis/bucket/v1alpha1"
+	//	iri "ironcore/iri/apis/bucket/v1alpha1"
+
 	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"sigs.k8s.io/controller-runtime/pkg/client"
@@ -36,6 +39,8 @@ func (s *Server) getIronCoreBucketConfig(_ context.Context, bucket *iri.Bucket) 
 		},
 		Spec: storagev1alpha1.BucketSpec{
 			BucketClassRef:     &corev1.LocalObjectReference{Name: bucket.Spec.Class},
+			SizeQuota:          bucket.Spec.SizeQuota,
+			FilesQuota:         bucket.Spec.FilesQuota,
 			BucketPoolRef:      bucketPoolRef,
 			BucketPoolSelector: s.bucketPoolSelector,
 		},

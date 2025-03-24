@@ -30,7 +30,9 @@ func (s *Server) convertAggregateIronCoreBucket(bucket *AggregateIronCoreBucket)
 	return &iri.Bucket{
 		Metadata: metadata,
 		Spec: &iri.BucketSpec{
-			Class: bucket.Bucket.Spec.BucketClassRef.Name,
+			Class:      bucket.Bucket.Spec.BucketClassRef.Name,
+			SizeQuota:  bucket.Bucket.Spec.SizeQuota,
+			FilesQuota: bucket.Bucket.Spec.FilesQuota,
 		},
 		Status: &iri.BucketStatus{
 			State:  state,

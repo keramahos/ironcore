@@ -209,7 +209,6 @@ func (s *Server) ListBuckets(ctx context.Context, req *iri.ListBucketsRequest) (
 	}
 
 	buckets = s.filterBuckets(buckets, req.Filter)
-
 	return &iri.ListBucketsResponse{
 		Buckets: buckets,
 	}, nil

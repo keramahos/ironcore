@@ -16,6 +16,10 @@ var (
 	bucketHeaders = []api.Header{
 		{Name: "ID"},
 		{Name: "Class"},
+		{Name: "SizeQuota"},
+		{Name: "FilesQuota"},
+		{Name: "SizeQuotaUsed"},
+		{Name: "FilesQuotaUsed"},
 		{Name: "State"},
 		{Name: "Age"},
 	}
@@ -25,12 +29,18 @@ var (
 	Bucket = tableconverter.Funcs[*iri.Bucket]{
 		Headers: tableconverter.Headers(bucketHeaders),
 		Rows: tableconverter.SingleRowFrom(func(bucket *iri.Bucket) (api.Row, error) {
+
 			return api.Row{
 				bucket.Metadata.Id,
 				bucket.Spec.Class,
+				bucket.Spec.SizeQuota,
+				bucket.Spec.FilesQuota,
+				bucket.Status.Sizeused,
+				bucket.Status.Filesused,
 				bucket.Status.State.String(),
 				duration.HumanDuration(time.Since(time.Unix(0, bucket.Metadata.CreatedAt))),
 			}, nil
+
 		}),
 	}
 	BucketSlice = tableconverter.SliceFuncs[*iri.Bucket](Bucket)
